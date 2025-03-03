@@ -1,0 +1,126 @@
+﻿<Window x:Class="Wpf.Home"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf"
+        mc:Ignorable="d"
+        Title="Home" Height="450" Width="800">
+    <Grid>
+        <!-- Sidebar -->
+        <Border Background="#D9D9D9" Width="109" HorizontalAlignment="Left">
+            <StackPanel Margin="10">
+                <TextBlock Name="txtUserName" FontWeight="Bold"/>
+                <TextBlock Name="txtUserRole" Margin="0,5,0,15"/>
+                <Button Name="btnManagement" Content="Quản lý" Margin="0,5,0,5" Click="btnManagement_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=txtUserRole}" Value="Admin">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+
+                <Button Content="Tài khoản" Margin="0,5,0,5" Click="btnAccount_Click"/>
+                <Button Content="Đăng xuất" Margin="0,5,0,5" Click="BtnLogout_Click"/>
+
+            </StackPanel>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Margin="114,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Top Buttons -->
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10">
+                <Button Content="Tất cả hóa đơn" Margin="5"/>
+                <Button Content="Sơ đồ bàn ăn" Margin="5"/>
+            </StackPanel>
+
+            <!-- Main Layout -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Category List -->
+                <StackPanel Grid.Column="0" Margin="10">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Name="txtSearch" Width="200" Height="30" />
+                        <Button Content="Tìm kiếm" Width="80" Margin="5,0,0,0" Click="btnSearch_Click"/>
+                    </StackPanel>
+
+                    <TextBlock Text="Chọn danh mục" FontWeight="Bold" Margin="5"/>
+                    <ComboBox ItemsSource="{Binding Categories}"
+       DisplayMemberPath="Name"
+       SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+       Width="366" Height="30"/>
+                </StackPanel>
+
+
+                <!-- Item List -->
+                <StackPanel Margin="15,109,0,10">
+                    <TextBlock Text="Danh sách món ăn" FontWeight="Bold" Margin="5"/>
+                    <ListView ItemsSource="{Binding Items}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Name}" Width="150"/>
+                                    <TextBlock Text="{Binding Price, StringFormat=N0}" Width="100" TextAlignment="Right"/>
+                                    <Button Content="Thêm" Width="50" Margin="5,0,0,0" 
+                 Click="btnAdd_Click" 
+                 Tag="{Binding}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+
+                </StackPanel>
+
+                <!-- Order Details -->
+                <StackPanel Margin="0,10,10,10" Background="LightGray" Grid.Column="1">
+                    <TextBlock Text="Bàn 3 - Tầng 1" FontWeight="Bold" Margin="5"/>
+                    <ListView ItemsSource="{Binding SelectedItems}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Item.Name}" Width="150"/>
+                                    <Button Content="-" Width="25" Click="btnDecrease_Click" Tag="{Binding}"/>
+                                    <TextBlock Text="{Binding Quantity}" Width="25" TextAlignment="Center"/>
+                                    <Button Content="+" Width="25" Click="btnIncrease_Click" Tag="{Binding}"/>
+                                    <TextBlock Text="{Binding TotalPrice, StringFormat=N0}" Width="100" TextAlignment="Right"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+
+
+                    <!-- Payment Section -->
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Tổng tiền" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding TotalOrderPrice, StringFormat=N0}" FontWeight="Bold" Foreground="Red"/>
+                        <TextBlock Text="Phí dịch vụ: 10000"/>
+                        <TextBlock Text="In hóa: 50000"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Cập nhật" Margin="5" />
+                            <Button Content="Thanh toán" Margin="5" Click="btnCheckout_Click"/>
+
+                        </StackPanel>
+                    </StackPanel>
+
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

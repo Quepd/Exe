@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=DESKTOP-GDKS90K\\SQLEXPRESS;uid=sa;pwd=123;database=SysManage;Encrypt=false; Trusted_Connection=True"
+  }
+}

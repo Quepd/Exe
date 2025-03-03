@@ -1,0 +1,26 @@
+﻿<Window x:Class="Wpf.Management"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf"
+        mc:Ignorable="d"
+        Title="Management" Height="450" Width="800">
+    <Grid Background="LightGray">
+        <!-- Sidebar -->
+        <Border Background="White" Margin="0,0,685,0">
+            <StackPanel>
+                <Button Content="Quản lý" FontWeight="Bold" Margin="5"/>
+                <Button Content="Tổng quan" Margin="5" Click="BtnTongQuan_Click"/>
+                <Button Content="Nhân viên" Margin="5" Click="BtnNhanVien_Click"/>
+                <Button Content="Danh mục" Margin="5" Click="BtnCategory_Click"/>
+                <Button Content="Sản phẩm" Margin="5" Click="BtnItem_Click"/>
+                <Button Content="Quay lại Home" Margin="5" Click="BtnBackToHome_Click"/>
+
+            </StackPanel>
+        </Border>
+        <StackPanel Margin="120,20,0,0">
+            <ContentControl x:Name="MainContent" Height="414" Width="672"/>
+        </StackPanel>
+    </Grid>
+</Window>
